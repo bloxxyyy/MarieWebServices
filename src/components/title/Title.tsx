@@ -1,4 +1,5 @@
 import { useRef, useState, useLayoutEffect } from 'react';
+import { useTheme } from '../../providers/ThemeProvider';
 
 //####################################################################################//
 // Properties
@@ -46,9 +47,12 @@ function TitleView({
 	containerRef,
 	fontSize
 }: TitleProps & { containerRef: React.RefObject<HTMLDivElement | null>; fontSize: string }) {
+
+    const theme = useTheme();
+
 	return (
 		<div ref={containerRef} className={center ? 'text-center' : ''}>
-			<h1 className="font-bold text-blue-100" style={{ fontSize }}>
+			<h1 className="font-bold" style={{ fontSize, color: theme.textcolors.title }}>
 				{text}
 			</h1>
 		</div>
