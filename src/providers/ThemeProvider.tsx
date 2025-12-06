@@ -5,9 +5,9 @@ import { createContext, type ReactNode, useContext } from "react";
 //####################################################################################//
 export type Theme = {
     textcolors: {
-        title: string,
-        desription: string
-    }
+        header: string;
+        paragraph: string;
+    };
 };
 
 //####################################################################################//
@@ -19,23 +19,25 @@ const ThemeContext = createContext<Theme | undefined>(undefined);
 // Provider
 //####################################################################################//
 type ThemeProviderProps = {
-	children: ReactNode;
-	theme: Theme;
+    children: ReactNode;
+    theme: Theme;
 };
 
 export const ThemeProvider = ({ children, theme }: ThemeProviderProps) => {
-	return <ThemeContext.Provider value={theme}>{children}</ThemeContext.Provider>;
+    return (
+        <ThemeContext.Provider value={theme}>{children}</ThemeContext.Provider>
+    );
 };
 
 //####################################################################################//
 // Callable
 //####################################################################################//
 export function useTheme(): Theme {
-	const context = useContext(ThemeContext);
+    const context = useContext(ThemeContext);
 
-	if (!context) {
-		throw new Error("no theme context has been found!");
-	}
+    if (!context) {
+        throw new Error("no theme context has been found!");
+    }
 
-	return context;
+    return context;
 }
