@@ -1,9 +1,9 @@
 import { useRef, useState, useEffect } from "react";
 import { useTheme } from "../../providers/ThemeProvider";
 
-/**
- * The properties for the Title component.
- */
+//####################################################################################//
+// Properties
+//####################################################################################//
 export type TitleProps = {
     /** The text content of the title */
     text: string;
@@ -22,7 +22,7 @@ const SCALE = 0.1;
 //####################################################################################//
 // Controller hook
 //####################################################################################//
-function useTitleController() {
+function TitleController() {
     const titleElementRef = useRef<HTMLHeadingElement>(null);
     const [fontSize, setFontSize] = useState("32");
     const theme = useTheme();
@@ -107,6 +107,6 @@ function TitleView({
  * <Title text="Hello World" center={false} />
  */
 export default function Title(props: TitleProps) {
-    const controller = useTitleController();
+    const controller = TitleController();
     return <TitleView {...props} {...controller} />;
 }

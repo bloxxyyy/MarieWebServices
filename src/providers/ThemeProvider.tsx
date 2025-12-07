@@ -1,7 +1,7 @@
 import { createContext, type ReactNode, useContext } from "react";
 
 //####################################################################################//
-// Theme type
+// Theme Props
 //####################################################################################//
 export type Theme = {
     textcolors: {
@@ -10,28 +10,16 @@ export type Theme = {
     };
 };
 
-//####################################################################################//
-// Context
-//####################################################################################//
-const ThemeContext = createContext<Theme | undefined>(undefined);
-
-//####################################################################################//
-// Provider
-//####################################################################################//
 type ThemeProviderProps = {
     children: ReactNode;
     theme: Theme;
 };
 
-export const ThemeProvider = ({ children, theme }: ThemeProviderProps) => {
-    return (
-        <ThemeContext.Provider value={theme}>{children}</ThemeContext.Provider>
-    );
-};
+//####################################################################################//
+// Context
+//####################################################################################//
+const ThemeContext = createContext<Theme | undefined>(undefined);
 
-//####################################################################################//
-// Callable
-//####################################################################################//
 export function useTheme(): Theme {
     const context = useContext(ThemeContext);
 
@@ -41,3 +29,31 @@ export function useTheme(): Theme {
 
     return context;
 }
+
+/**
+ * Provides a theme object to the React component tree via context.
+ *
+ * This component wraps its children with a {@link ThemeContext.Provider}
+ * and makes the supplied {@link Theme} available through the {@link useTheme} hook.
+ *
+ * @param props - Provider configuration.
+ * @param props.children - The React component subtree that will receive the theme.
+ * @param props.theme - The theme object containing styling values.
+ *
+ * @example
+ * const theme: Theme = {
+ *   textcolors: {
+ *     header: "#ffffff",
+ *     paragraph: "#cccccc",
+ *   },
+ * };
+ *
+ * <ThemeProvider theme={theme}>
+ *   <App />
+ * </ThemeProvider>
+ */
+export const ThemeProvider = ({ children, theme }: ThemeProviderProps) => {
+    return (
+        <ThemeContext.Provider value={theme}>{children}</ThemeContext.Provider>
+    );
+};
