@@ -1,5 +1,7 @@
 import { useRef, useState, useEffect } from "react";
-import { useTheme } from "../../providers/ThemeContext";
+import { useTheme } from "../../providers/theme/ThemeContext";
+import { useHeadingLevel } from "../../providers/headingLevel/HeadingLevelContext";
+import type { HeadingTag } from "../../types/HeadingTag";
 
 const MIN_SIZE = 24;
 const MAX_SIZE = 48;
@@ -9,6 +11,8 @@ export function TitleController() {
     const titleElementRef = useRef<HTMLHeadingElement>(null);
     const [fontSize, setFontSize] = useState("32");
     const theme = useTheme();
+    const level = useHeadingLevel();
+    const Tag = `h${level.toString()}` as HeadingTag;
 
     useEffect(() => {
         const currentElement = titleElementRef.current;
@@ -50,5 +54,6 @@ export function TitleController() {
         titleElementRef,
         fontSize,
         headerColor: theme.textcolors.header,
+        Tag,
     };
 }

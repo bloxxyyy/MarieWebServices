@@ -1,5 +1,6 @@
-import Title from "./components/title/title";
-import { ThemeProvider } from "./providers/ThemeProvider";
+import Section from "./components/section/Section";
+import Title from "./components/title/Title";
+import { ThemeProvider } from "./providers/theme/ThemeProvider";
 import type { Theme } from "./types/Theme";
 
 export default function App() {
@@ -12,9 +13,23 @@ export default function App() {
 
     return (
         <ThemeProvider theme={theme}>
-            <div className="min-h-screen bg-gradient-to-br from-gray-900 via-gray-800 to-gray-700 grid grid-rows-3 grid-cols-3">
+            <div className="min-h-screen bg-gradient-to-br from-gray-900 via-gray-800 to-gray-700 grid grid-cols-3">
                 <div className="row-start-1 col-start-2 flex items-center justify-center">
-                    <Title text="Hello Tailwind" />
+                    <article className="w-full">
+                        <Title text="Main Article" />
+                        <Section className="w-full">
+                            <Title text="Section 1" />
+                            <Section className="w-full">
+                                <Title text="Subsection A" />
+                                <Title text="Subsection B" />
+                            </Section>
+                            <Title text="Section 2" />
+                            <Section className="w-full">
+                                <Title text="Subsection C" />
+                                <Title text="Subsection D" />
+                            </Section>
+                        </Section>
+                    </article>
                 </div>
             </div>
         </ThemeProvider>

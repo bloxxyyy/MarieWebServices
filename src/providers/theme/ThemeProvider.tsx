@@ -1,9 +1,19 @@
 import type { ReactNode } from "react";
 import { ThemeContext } from "./ThemeContext";
-import type { Theme } from "../types/Theme";
+import type { Theme } from "../../types/Theme";
+import type { useTheme } from "./ThemeContext";
 
+/**
+ * Props for {@link ThemeProvider}.
+ */
 export interface ThemeProviderProps {
+    /** The React component subtree that will receive the theme. */
     children: ReactNode;
+
+    /**
+     * The theme object containing colors, font sizes, and other styling values.
+     * See {@link Theme} for the full structure.
+     */
     theme: Theme;
 }
 

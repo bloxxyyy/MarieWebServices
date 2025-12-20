@@ -4,6 +4,7 @@ import reactHooks from 'eslint-plugin-react-hooks'
 import reactRefresh from 'eslint-plugin-react-refresh'
 import tseslint from 'typescript-eslint'
 import { defineConfig, globalIgnores } from 'eslint/config'
+import jsdoc from 'eslint-plugin-jsdoc';
 
 export default defineConfig([
   globalIgnores(['dist']),
@@ -24,10 +25,15 @@ export default defineConfig([
         tsconfigRootDir: import.meta.dirname,
       },
     },
+    plugins: {jsdoc},
     rules: {
       semi: ['error', 'always'],
       // Optional overrides for stylistic preferences
       ...tseslint.configs.stylisticTypeChecked.rules,
+      'jsdoc/no-undefined-types': [
+        'warn',
+        { markVariablesAsUsed: true } // marks imports in JSDoc as “used”
+      ],
     },
   },
 ])
