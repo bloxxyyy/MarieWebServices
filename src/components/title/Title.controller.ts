@@ -3,13 +3,24 @@ import { useTheme } from "../../providers/theme/ThemeContext";
 import { useHeadingLevel } from "../../providers/headingLevel/HeadingLevelContext";
 import type { HeadingTag } from "../../types/HeadingTag";
 
-const MIN_SIZE = 24;
-const MAX_SIZE = 48;
-const SCALE = 0.1;
+const BASE_SIZES: Record<number, number> = {
+    1: 48,
+    2: 40,
+    3: 32,
+    4: 28,
+    5: 24,
+    6: 20,
+};
+
+const FALLBACK_SIZE = 32;
+const MIN_SIZE = 16; // absolute minimum
+const MAX_SCALE = 1.2; // allow up to 20% bigger than base size
+const REFERENCE_WIDTH = 400; // reference parent width for base size
 
 export function TitleController() {
     const titleElementRef = useRef<HTMLHeadingElement>(null);
     const [fontSize, setFontSize] = useState("32");
+
     const theme = useTheme();
     const level = useHeadingLevel();
     const Tag = `h${level.toString()}` as HeadingTag;
@@ -25,9 +36,13 @@ export function TitleController() {
 
         const updateFontSize = () => {
             const parentWidth = parent.getBoundingClientRect().width;
-            const scaledWidth = parentWidth * SCALE;
-            const size = Math.min(Math.max(scaledWidth, MIN_SIZE), MAX_SIZE);
-            setFontSize(`${size.toString()}px`);
+            const baseSize = BASE_SIZES[level] || FALLBACK_SIZE;
+
+            const scale = Math.min(parentWidth / REFERENCE_WIDTH, MAX_SCALE);
+            const scaledSize = baseSize * scale;
+            const size = Math.max(scaledSize, MIN_SIZE);
+
+            setFontSize(`${size}px`);
         };
 
         // Throttled handler: ensures updateFontSize runs at most once per animation frame
