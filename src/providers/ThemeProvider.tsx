@@ -1,33 +1,10 @@
-import { createContext, type ReactNode, useContext } from "react";
+import type { ReactNode } from "react";
+import { ThemeContext } from "./ThemeContext";
+import type { Theme } from "../types/Theme";
 
-//####################################################################################//
-// Theme Props
-//####################################################################################//
-export type Theme = {
-    textcolors: {
-        header: string;
-        paragraph: string;
-    };
-};
-
-type ThemeProviderProps = {
+export interface ThemeProviderProps {
     children: ReactNode;
     theme: Theme;
-};
-
-//####################################################################################//
-// Context
-//####################################################################################//
-const ThemeContext = createContext<Theme | undefined>(undefined);
-
-export function useTheme(): Theme {
-    const context = useContext(ThemeContext);
-
-    if (!context) {
-        throw new Error("no theme context has been found!");
-    }
-
-    return context;
 }
 
 /**

@@ -1,5 +1,6 @@
-import Title from "./components/title/Title";
-import { ThemeProvider, type Theme } from "./providers/ThemeProvider";
+import Title from "./components/title/title";
+import { ThemeProvider } from "./providers/ThemeProvider";
+import type { Theme } from "./types/Theme";
 
 export default function App() {
     const theme: Theme = {
