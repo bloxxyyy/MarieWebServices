@@ -1,8 +1,7 @@
 import i18n from "i18next";
 import { initReactI18next } from "react-i18next";
-
-import enTest from "./locales/en/test.json";
-import nlTest from "./locales/nl/test.json";
+import enTest from "@/i18n/locales/en/test.json";
+import nlTest from "@/i18n/locales/nl/test.json";
 
 export const DEFAULT_LANGUAGE = "en";
 

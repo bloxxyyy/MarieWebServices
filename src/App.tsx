@@ -1,3 +1,4 @@
+import type { JSX } from "react";
 import Section from "./components/section/Section";
 import Title from "./components/title/Title";
 import { ThemeProvider } from "./providers/theme/ThemeProvider";
@@ -5,7 +6,13 @@ import { TranslationProvider } from "./providers/translation/TranslationProvider
 import { useTranslation } from "./providers/translation/TranslationsContext";
 import type { Theme } from "./types/Theme";
 
-export default function App() {
+/**
+ * Root application component.
+ *
+ * Wraps the main app in providers
+ * @returns {JSX.Element} JSX element representing the app layout
+ */
+export default function App(): JSX.Element {
     const theme: Theme = {
         textcolors: {
             header: "#dee9fcff",

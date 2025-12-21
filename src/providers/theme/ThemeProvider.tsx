@@ -1,7 +1,7 @@
-import type { ReactNode } from "react";
-import { ThemeContext } from "./ThemeContext";
-import type { Theme } from "../../types/Theme";
-import type { useTheme } from "./ThemeContext";
+import type { JSX, ReactNode } from "react";
+import { ThemeContext } from "@/providers/theme/ThemeContext";
+import type { Theme } from "@/types/Theme";
+import type { useTheme } from "@/providers/theme/ThemeContext";
 
 /**
  * Props for {@link ThemeProvider}.
@@ -20,12 +20,13 @@ export interface ThemeProviderProps {
 /**
  * Provides a theme object to the React component tree via context.
  *
- * This component wraps its children with a {@link ThemeContext.Provider}
- * and makes the supplied {@link Theme} available through the {@link useTheme} hook.
+ * @description
+ * Wraps its children with a {@link ThemeContext.Provider} and exposes the supplied
+ * {@link Theme} to descendant components through the {@link useTheme} hook.
  *
- * @param props - Provider configuration.
- * @param props.children - The React component subtree that will receive the theme.
- * @param props.theme - The theme object containing styling values.
+ * @param {ThemeProviderProps} props - Provider configuration..
+ * @returns {JSX.Element} The provider wrapping the component subtree.
+ * @see {@link ThemeProviderProps} for detailed prop descriptions.
  *
  * @example
  * const theme: Theme = {
@@ -39,7 +40,7 @@ export interface ThemeProviderProps {
  *   <App />
  * </ThemeProvider>
  */
-export const ThemeProvider = ({ children, theme }: ThemeProviderProps) => {
+export const ThemeProvider = ({ children, theme }: ThemeProviderProps): JSX.Element => {
     return (
         <ThemeContext.Provider value={theme}>{children}</ThemeContext.Provider>
     );

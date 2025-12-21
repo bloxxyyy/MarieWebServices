@@ -1,7 +1,9 @@
 import { useRef, useState, useEffect } from "react";
-import { useTheme } from "../../providers/theme/ThemeContext";
-import { useHeadingLevel } from "../../providers/headingLevel/HeadingLevelContext";
-import type { HeadingTag } from "../../types/HeadingTag";
+import { useTheme } from "@/providers/theme/ThemeContext";
+import { useHeadingLevel } from "@/providers/headingLevel/HeadingLevelContext";
+import type { HeadingTag } from "@/types/HeadingTag";
+import type { TitleControllerResult } from "@/components/title/Title";
+import Title from "@/components/title/Title";
 
 const BASE_SIZES: Record<number, number> = {
     1: 48,
@@ -17,7 +19,22 @@ const MIN_SIZE = 16;
 const MAX_SCALE = 1.2;
 const REFERENCE_WIDTH = 400; // reference parent width for base size
 
-export function TitleController() {
+/**
+ * Controller hook for a {@link Title} component.
+ *
+ * @description
+ * Provides a ref for the heading element, a responsive font size based on
+ * parent width, the theme's heading color, and the HTML heading tag
+ * corresponding to the current heading level.
+ *
+ * @returns {TitleControllerResult} Object containing the heading ref, computed font size,
+ * color from theme, and the heading tag.
+ *
+ * @see {@link TitleControllerResult}
+ * @see {@link useHeadingLevel}
+ * @see {@link useTheme}
+ */
+export function TitleController() : TitleControllerResult {
     const titleElementRef = useRef<HTMLHeadingElement>(null);
     const [fontSize, setFontSize] = useState("32");
 
@@ -42,7 +59,7 @@ export function TitleController() {
             const scaledSize = baseSize * scale;
             const size = Math.max(scaledSize, MIN_SIZE);
 
-            setFontSize(`${size}px`);
+            setFontSize(`${size.toString()}px`);
         };
 
         // Throttled handler: ensures updateFontSize runs at most once per animation frame
@@ -63,7 +80,7 @@ export function TitleController() {
             observer.disconnect();
             if (frameId) cancelAnimationFrame(frameId);
         };
-    }, []);
+    }, [level]);
 
     return {
         titleElementRef,

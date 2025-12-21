@@ -1,6 +1,6 @@
-import type { ReactNode } from "react";
-import { HeadingLevelContext, useHeadingLevel } from "./HeadingLevelContext";
-import Title from "../../components/title/Title";
+import type { JSX, ReactNode } from "react";
+import { HeadingLevelContext, useHeadingLevel } from "@/providers/headingLevel/HeadingLevelContext";
+import Title from "@/components/title/Title";
 
 /**
  * Props for {@link HeadingLevelProvider}.
@@ -20,21 +20,21 @@ export interface HeadingLevelProviderProps {
 /**
  * Provides a heading level context to the React component tree.
  *
- * This component wraps its children with a {@link HeadingLevelContext.Provider}
- * and makes the current heading level available to nested components via
+ * @description
+ * Wraps its children with a {@link HeadingLevelContext.Provider} and makes
+ * the current heading level available to nested components via
  * {@link useHeadingLevel}.
  *
- * @param props - Provider configuration.
- * @param props.children - The React component subtree that will receive the level.
- * @param props.level - Starting heading level for the subtree.
- *
- * @remarks
  * Components like {@link Title} can use {@link useHeadingLevel} to automatically
  * determine which HTML heading tag (`h1`–`h6`) to render. Wrapping content in
  * multiple {@link HeadingLevelProvider} components allows you to increment
  * heading levels in a nested manner.
+ *
+ * @param {HeadingLevelProviderProps} props - Provider configuration.
+ * @returns {JSX.Element} The provider wrapping the children.
+ * @see {@link HeadingLevelProviderProps} for detailed prop descriptions.
  */
-export const HeadingLevelProvider = ({ children, level = 1 }: HeadingLevelProviderProps) => {
+export const HeadingLevelProvider = ({ children, level = 1 }: HeadingLevelProviderProps) : JSX.Element => {
     return (
         <HeadingLevelContext.Provider value={level}>
             {children}

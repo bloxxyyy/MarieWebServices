@@ -1,21 +1,25 @@
-import { createContext, useContext } from "react";
-import type { Theme } from "../../types/Theme";
-import { type ThemeProvider } from "./ThemeProvider";
+import { createContext, useContext, type Context } from "react";
+import type { Theme } from "@/types/Theme";
+import { type ThemeProvider } from "@/providers/theme/ThemeProvider";
 
 /**
  * React context holding the current theme object.
  *
- * @remarks
+ * @description
  * Used internally by {@link ThemeProvider} and accessed via {@link useTheme}.
  */
-export const ThemeContext = createContext<Theme | undefined>(undefined);
+export const ThemeContext : Context<Theme | undefined> = createContext<Theme | undefined>(undefined);
 
 /**
  * Hook to access the current theme object from context.
  *
- * @returns The current {@link Theme} object.
+ * @description
+ * Must be used within a {@link ThemeProvider}. Throws an error if no theme
+ * context is available in the component tree.
  *
- * @throws If no {@link ThemeContext} has been provided in the component tree.
+ * @returns {Theme} The current theme object.
+ * @see {@link Theme} for the structure of the theme object.
+ * @throws {Error} If no {@link ThemeContext} has been provided.
  *
  * @example
  * const theme = useTheme();
