@@ -13,8 +13,8 @@ const BASE_SIZES: Record<number, number> = {
 };
 
 const FALLBACK_SIZE = 32;
-const MIN_SIZE = 16; // absolute minimum
-const MAX_SCALE = 1.2; // allow up to 20% bigger than base size
+const MIN_SIZE = 16;
+const MAX_SCALE = 1.2;
 const REFERENCE_WIDTH = 400; // reference parent width for base size
 
 export function TitleController() {
@@ -35,7 +35,7 @@ export function TitleController() {
         let frameId: number;
 
         const updateFontSize = () => {
-            const parentWidth = parent.getBoundingClientRect().width;
+            const parentWidth = parent.getBoundingClientRect().width * window.devicePixelRatio;
             const baseSize = BASE_SIZES[level] || FALLBACK_SIZE;
 
             const scale = Math.min(parentWidth / REFERENCE_WIDTH, MAX_SCALE);
