@@ -1,10 +1,10 @@
 import type { JSX } from "react";
-import Section from "./components/section/Section";
-import Title from "./components/title/Title";
-import { ThemeProvider } from "./providers/theme/ThemeProvider";
-import { TranslationProvider } from "./providers/translation/TranslationProvider";
-import { useTranslation } from "./providers/translation/TranslationsContext";
-import type { Theme } from "./types/Theme";
+import Section from "@/components/section/Section";
+import Title from "@/components/title/Title";
+import { ThemeProvider } from "@/providers/theme/ThemeProvider";
+import { TranslationProvider } from "@/providers/translation/TranslationProvider";
+import { useTranslation } from "@/providers/translation/TranslationsContext";
+import type { Theme } from "@/types/Theme";
 
 /**
  * Root application component.

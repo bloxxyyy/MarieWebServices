@@ -12,56 +12,69 @@ import { fileURLToPath } from 'url';
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
+    globalIgnores(['dist']),
+    {
+        files: ['**/*.{ts,tsx}'],
 
-    plugins: {
-      jsdoc,
-      "react-hooks": reactHooks,
-      "react-refresh": reactRefresh,
-      "@typescript-eslint": tsEslintPlugin,
-    },
-
-    languageOptions: {
-      parser: tsParser,
-      ecmaVersion: 2020,
-      globals: globals.browser,
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: __dirname,
-      },
-    },
-
-    settings: {
-      'import/resolver': {
-        typescript: {
-          project: ['./tsconfig.app.json'],
+        plugins: {
+            jsdoc,
+            "react-hooks": reactHooks,
+            "react-refresh": reactRefresh,
+            "@typescript-eslint": tsEslintPlugin,
         },
-      },
+
+        languageOptions: {
+            parser: tsParser,
+            ecmaVersion: 2020,
+            globals: globals.browser,
+            parserOptions: {
+                project: ['./tsconfig.node.json', './tsconfig.app.json'],
+                tsconfigRootDir: __dirname,
+            },
+        },
+
+        settings: {
+            'import/resolver': {
+                typescript: {
+                    project: ['./tsconfig.app.json'],
+                },
+            },
+        },
+
+        rules: {
+            // Base JS rules
+            ...js.configs.recommended.rules,
+
+            // TypeScript rules
+            ...tsEslintPlugin.configs['strict-type-checked'].rules,
+            ...tsEslintPlugin.configs['stylistic-type-checked'].rules,
+
+            // React Hooks rules
+            ...reactHooks.configs['recommended-latest'].rules,
+
+            // React Refresh rules
+            ...reactRefresh.configs.vite.rules,
+
+            // JSDoc rules
+            ...jsdoc.configs.recommended.rules,
+
+            // Architecture / import rules
+            'no-restricted-imports': [
+                'error',
+                {
+                    patterns: [
+                        {
+                            group: ['./*', '../*'],
+                            message: 'Use absolute imports with @/ instead of relative paths.',
+                        },
+                    ],
+                },
+            ],
+
+            // Your overrides
+            semi: ['error', 'always'],
+            'jsdoc/no-undefined-types': ['warn', { markVariablesAsUsed: true }],
+            'jsdoc/tag-lines': 'off',
+        },
     },
-
-    rules: {
-      // Base JS rules
-      ...js.configs.recommended.rules,
-
-      // TypeScript rules
-      ...tsEslintPlugin.configs['strict-type-checked'].rules,
-      ...tsEslintPlugin.configs['stylistic-type-checked'].rules,
-
-      // React Hooks rules
-      ...reactHooks.configs['recommended-latest'].rules,
-
-      // React Refresh rules
-      ...reactRefresh.configs.vite.rules,
-
-      // JSDoc rules
-      ...jsdoc.configs.recommended.rules,
-
-      // Your overrides
-      semi: ['error', 'always'],
-      'jsdoc/no-undefined-types': ['warn', { markVariablesAsUsed: true }],
-      'jsdoc/tag-lines': 'off',
-    },
-  },
 ]);
