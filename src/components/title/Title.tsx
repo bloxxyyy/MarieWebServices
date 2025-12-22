@@ -12,6 +12,12 @@ export interface TitleProps {
      * @default true
      */
     center?: boolean;
+
+    /**
+     * Whether the title should contain a underline whenever possible.
+     * @default true
+     */
+    shouldTryUnderline?: boolean;
 };
 
 /**
@@ -26,6 +32,8 @@ export interface TitleControllerResult {
     headerColor: string;
     /** The HTML heading tag corresponding to the current level (`h1`–`h6`) */
     Tag: HeadingTag;
+    /** Whether the title should be rendered with underline */
+    underline: boolean;
 }
 
 /**
@@ -35,6 +43,8 @@ export interface TitleControllerResult {
  * Title component displays a dynamic heading whose font size adjusts
  * based on the parent element’s width.
  *
+ * contains a underline when the heading level is 1 or 2, unless disabled.
+ *
  * @param {TitleProps} props - Props for the Title component.
  * @returns {JSX.Element} The rendered title element.
  * @see {@link TitleProps} for detailed prop descriptions.
@@ -42,8 +52,9 @@ export interface TitleControllerResult {
  * @example
  * <Title text="Welcome" />
  * <Title text="Hello World" center={false} />
+ * <Title text="Hello World" shouldTryUnderline={false} />
  */
 export default function Title(props: TitleProps) : JSX.Element {
-    const controller : TitleControllerResult = TitleController();
+    const controller : TitleControllerResult = TitleController(props);
     return <TitleView {...props} {...controller} />;
 }

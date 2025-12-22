@@ -1,5 +1,5 @@
-import type { JSX } from "react";
-import type { TitleControllerResult, TitleProps } from "@/components/title/Title";
+import { type JSX } from "react";
+import type { TitleControllerResult, TitleProps, } from "@/components/title/Title";
 import type Title from "@/components/title/Title";
 
 interface TitleViewProps extends TitleProps, TitleControllerResult {}
@@ -14,15 +14,23 @@ interface TitleViewProps extends TitleProps, TitleControllerResult {}
  * @returns {JSX.Element} The rendered heading element.
  * @see {@link TitleViewProps} for detailed prop descriptions.
  */
-export function TitleView(props: TitleViewProps) : JSX.Element {
-
-    const { text, center = true, titleElementRef, fontSize, headerColor, Tag } = props;
+export function TitleView(props: TitleViewProps): JSX.Element {
+    const { text, center = true, titleElementRef, fontSize, headerColor, Tag, underline } = props;
 
     return (
         <Tag
             ref={titleElementRef}
-            className={`font-bold ${center ? "text-center" : ""}`}
-            style={{ fontSize: fontSize, color: headerColor }}
+            className={
+                [
+                    "font-bold",
+                    center && "text-center"
+                ].filter(Boolean).join(" ")
+            }
+            style={{
+                fontSize: fontSize,
+                color: headerColor,
+                ...(underline && { boxShadow: "inset 0 -2px 0 color-mix(in srgb, currentColor 20%, transparent)" }),
+            }}
         >
             {text}
         </Tag>

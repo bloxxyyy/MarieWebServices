@@ -39,7 +39,6 @@ export interface ArticleProps {
  * <Article className="p-4 bg-gray-100">
  *   <Title text="Hello World" />
  * </Article>
- *
  */
 export default function Article(props: ArticleProps): JSX.Element {
     const controller = ArticleController();

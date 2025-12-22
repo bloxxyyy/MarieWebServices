@@ -11,10 +11,10 @@ export interface HeadingLevelProviderProps {
 
     /**
      * The starting heading level for nested headings.
-     * Values should be between 1 and 6.
+     * Values should be between 1 (initial) and 6.
      * @default 1
      */
-    level?: number;
+    level: number;
 }
 
 /**
@@ -34,7 +34,7 @@ export interface HeadingLevelProviderProps {
  * @returns {JSX.Element} The provider wrapping the children.
  * @see {@link HeadingLevelProviderProps} for detailed prop descriptions.
  */
-export const HeadingLevelProvider = ({ children, level = 1 }: HeadingLevelProviderProps) : JSX.Element => {
+export const HeadingLevelProvider = ({ children, level }: HeadingLevelProviderProps) : JSX.Element => {
     return (
         <HeadingLevelContext.Provider value={level}>
             {children}

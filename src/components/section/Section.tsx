@@ -39,7 +39,6 @@ export interface SectionProps {
  * <Section className="p-4 bg-gray-100">
  *   <Title text="Hello World" />
  * </Section>
- *
  */
 export default function Section(props: SectionProps): JSX.Element {
     const controller = SectionController();
